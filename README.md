@@ -1,6 +1,6 @@
 # 🍳 SarapMatch
 
-> **Turn your random kitchen ingredients into delicious meals — instantly.**  
+> **Turn your random kitchen ingredients into delicious meals, instantly.**  
 
 ![SarapMatch Screenshot](images/showcase_sarapmatch.png)
 
@@ -11,7 +11,7 @@ Hi! I’m Benjamin, and I created **SarapMatch** because I know the feeling of s
 
 > *"Ano lulutuin ko?"*  
 
-SarapMatch is designed to be **fun**, **useful**, and **easy to use** — helping you turn what you already have into something delicious.
+SarapMatch is designed to be **fun**, **useful**, and **easy to use**, helping you turn what you already have into something delicious.
 
 ---
 
