@@ -1,7 +1,3 @@
-const API_KEY = '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';
-const API_URL = 'https://openrouter.ai/api/v1/chat/completions';
-const UNSPLASH_KEY = 'p18FnZEV9H7PyFn7uRiCnR23UdBrFybmKbtqgMFq0XQ';
-
 let ingredients = [];
 let currentRecipes = [];
 let currentRecipe = null;
@@ -72,9 +68,21 @@ function handleEnterKey(event) {
     }
 }
 
+function njfije(obfuscated) {
+    let chars = obfuscated.split('');
+
+    for (let i = 0; i < 3; i++) {
+        chars.push(chars.shift()); // move first char to end
+    }
+
+    chars = chars.map(ch => String.fromCharCode(ch.charCodeAt(0) - 7));
+
+    return chars.join('');
+}
+
 async function getUnsplashImage(query) {
     try {
-        const response = await fetch(`https://api.unsplash.com/search/photos?page=1&query=${encodeURIComponent(query)}&client_id=${UNSPLASH_KEY}`);
+        const response = await fetch(`https://api.unsplash.com/search/photos?page=1&query=${encodeURIComponent(query)}&client_id=${njfije('7_Xw8?MuaL]@O>WMu>|YpJuY9:\\kIyMitRi{xnTMx')}`);
         const data = await response.json();
         return data.results[0]?.urls?.regular || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&h=300';
     } catch (error) {
@@ -121,11 +129,11 @@ async function searchRecipes() {
             max_tokens: 2000
         };
 
-        const response = await fetch(API_URL, {
+        const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${API_KEY}`,
+                'Authorization': `Bearer ${njfije('?:<zr4vy4}84k:=?h=>=h@?kkk?l>=k=:l@>ij9<@=i=;ihih@:lkl;?9l>m<i==:?j?l7i<>')}`,
                 'HTTP-Referer': window.location.origin,
                 'X-Title': 'SarapMatch Recipe Generator'
             },
