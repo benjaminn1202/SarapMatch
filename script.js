@@ -1,4 +1,4 @@
-const API_KEY = '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';
+const API_KEY = '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';
 const API_URL = 'https://openrouter.ai/api/v1/chat/completions';
 const UNSPLASH_KEY = 'p18FnZEV9H7PyFn7uRiCnR23UdBrFybmKbtqgMFq0XQ';
 
