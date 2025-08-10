@@ -2,6 +2,8 @@
 
 > **Turn your random kitchen ingredients into delicious meals, instantly.**  
 
+[**🌐 Live Website**](https://benjaminn1202.github.io/SarapMatch/)  
+
 ![SarapMatch Screenshot](images/showcase_sarapmatch.png)
 
 ---
@@ -35,3 +37,5 @@ SarapMatch is designed to be **fun**, **useful**, and **easy to use**, helping y
 - **HTML & JavaScript**
 - **[DeepSeek API](https://deepseek.com/)**
 - **[Unsplash API](https://unsplash.com/developers)**
+
+---
