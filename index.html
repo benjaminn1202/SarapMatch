@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SarapMatch - Recipe Finder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg px-3 py-0 bg-secondary sticky-top" style="z-index: 1030;">
+        <div class="container-fluid">
+            <a class="navbar-brand m-0 d-flex align-items-center" href="index.html" onclick="showPage('home')">
+                <img src="images/logo_sarap-match.png" class="img-fluid me-2" style="width: 3rem; height: 3rem;">
+                <span class="brand-text" style="font-weight: 500; font-size: 1.5rem; color: #E6B980;">SarapMatch</span>
+            </a>
+    
+            <button class="navbar-toggler m-0" type="button" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation" onclick="toggleNavbar()" style="outline: none; border: none;">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active nav-item-home" href="#" onclick="showPage('home')">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('about')">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('contact')">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Home Page -->
+        <div id="homePage" class="page-section active">
+            <section class="py-5 text-center text-secondary position-relative mb-3" style="background: url('images/hero-image.jpg') center/cover no-repeat; width: 100%;">
+                <div class="overlay position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0,0,0,0.5);"></div>
+                <div class="container position-relative d-flex flex-column justify-content-center align-items-center" style="min-height: 100%;">
+                    <h1 class="display-3 fw-bold mb-3 mx-0 text-light">SarapMatch</h1>
+                    <p class="lead m-0">Discover <span class="text-primary">mouth-watering recipes</span> from the ingredients already in your kitchen.</p>
+                </div>
+            </section>
+
+            <section class="mb-4">
+                <div class="container">
+                    <div class="d-flex mb-2">
+                        <input class="form-control me-2" type="text" id="ingredientInput" placeholder="Add your available ingredients (eg. 300g Flour)" aria-label="Search" onkeypress="handleEnterKey(event)">
+                        <button class="btn btn-primary" type="button" onclick="addIngredient()">
+                            <i class="fas fa-plus me-1"></i>Add
+                        </button>
+                    </div>
+
+                    <div class="container mx-0 px-0 mb-3" id="ingredientBadgeContainer">
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <button class="btn btn-success btn-lg" onclick="searchRecipes()" id="searchButton">
+                            <i class="fas fa-search me-2"></i>Find Recipes
+                        </button>
+                    </div>
+                    <div class="loading-spinner text-center" id="loadingSpinner">
+                        <img src="images/logo_sarap-match.png" alt="Loading" style="width: 4rem; height: 4rem; animation: spin 1s linear infinite;">
+                        <p class="mt-2">Finding recipes for you...</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-3" id="recipesSection" style="display: none;">
+                <div class="container">
+                    <h1 class="display-6 fw-bold mb-3"><i class="fas fa-book-open me-2"></i>Available Recipe/s</h1>
+                </div>
+                <div class="container">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3" id="recipesContainer">
+                    </div>
+                    <div id="noRecipesMessage" class="no-recipes" style="display: none;">
+                        <i class="fas fa-search fa-3x mb-3"></i>
+                        <h4>No recipes found</h4>
+                        <p>Try adding different ingredients or reducing the number of ingredients.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Recipe Detail Page -->
+        <div id="recipePage" class="page-section">
+            <div class="container">
+                <div class="back-button mt-3 mb-3">
+                    <button class="btn btn-primary" onclick="showPage('home')">
+                        <i class="fas fa-arrow-left me-2 text-light"></i>Back to Recipes
+                    </button>
+                </div>
+            </div>
+            
+            <section class="mb-3">
+                <div class="container">
+                    <h1 class="display-6 fw-bold mb-3" id="recipeTitle">Recipe Title</h1>
+                </div>
+                <div class="container">
+                    <div class="row g-4">
+                        <div class="col-lg-5">
+                            <img id="recipeImage" src="" alt="" class="img-fluid shadow">
+                        </div>
+                  
+                        <div class="col-lg-7">
+                            <h5 class="fw-bold"><i class="fas fa-list-ul me-2"></i>Ingredients</h5>
+                            <ul id="recipeIngredients">
+                            </ul>
+                    
+                            <h5 class="fw-bold mt-4"><i class="fas fa-clipboard-list me-2"></i>Instructions</h5>
+                            <ol id="recipeInstructions">
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- About Page -->
+        <div id="aboutPage" class="page-section">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h1 class="display-6 fw-bold text-center mb-5">
+                            <i class="fas fa-info-circle me-3"></i>About
+                        </h1>
+                        <div class="card shadow-lg">
+                            <div class="card-body p-5">
+                                <h3 class="fw-bold mb-4">My Vision</h3>
+                                <p class="lead mb-4">
+                                    Hi! I’m Benjamin, and I created <strong>SarapMatch</strong> because I know the feeling of standing in the kitchen,
+                                    staring at random ingredients, and thinking, “Ano lulutuin ko?”  
+                                    I wanted to make something fun, useful, and easy to use, a site that helps you turn what you already have into something delicious.
+                                </p>
+                                
+                                <h3 class="fw-bold mb-4">How It Works</h3>
+                                <div class="row g-4">
+                                    <div class="col-md-4 text-center">
+                                        <i class="fas fa-plus-circle fa-3x text-primary mb-3"></i>
+                                        <h5>Add Ingredients</h5>
+                                        <p>List down what’s in your kitchen, no matter how simple.</p>
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        <i class="fas fa-search fa-3x text-primary mb-3"></i>
+                                        <h5>Find Recipes</h5>
+                                        <p>Using AI from DeepSeek and images from Unsplash, SarapMatch finds the best recipes for you.</p>
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        <i class="fas fa-utensils fa-3x text-primary mb-3"></i>
+                                        <h5>Cook & Enjoy</h5>
+                                        <p>Follow easy steps and enjoy your homemade meal.</p>
+                                    </div>
+                                </div>
+                                
+                                <h3 class="fw-bold mb-4 mt-5">What I Used to Build It</h3>
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Bootstrap for a responsive, clean layout</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Custom CSS for styling tweaks</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>HTML & JavaScript for structure and interactivity</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>DeepSeek API for recipe matching</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Unsplash API for high-quality food images</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+
+        <!-- Contact Page -->
+        <div id="contactPage" class="page-section">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h1 class="display-6 fw-bold text-center mb-3">
+                            <i class="fas fa-envelope me-3"></i>Contact
+                        </h1>
+                        <div class="card shadow-lg">
+                            <div class="card-body p-5">
+                                <div class="row g-4">
+                                    <div class="col-md-12">
+                                        <h3 class="fw-bold mb-4">Get In Touch</h3>
+                                        <p class="mb-4">
+                                            Have questions, suggestions, or feedback? 
+                                            Feel free to reach out using any of the methods below.
+                                        </p>
+                                        
+                                        <div class="contact-info">
+                                            <div class="mb-3">
+                                                <i class="fas fa-envelope text-primary me-3"></i>
+                                                <strong>Email:</strong> benj.rollan.02@gmail.com
+                                            </div>
+                                            <div class="mb-3">
+                                                <i class="fas fa-phone text-primary me-3"></i>
+                                                <strong>Phone:</strong> +63 919 726 9497
+                                            </div>
+                                            <div class="mb-3">
+                                                <i class="fas fa-map-marker-alt text-primary me-3"></i>
+                                                <strong>Location:</strong> Quezon City, Philippines
+                                            </div>
+                                            <div class="mb-3">
+                                                <i class="fab fa-linkedin text-primary me-3"></i>
+                                                <strong>LinkedIn:</strong> <a href="https://linkedin.com/in/benjamin-rollan-a2690a229" target="_blank" class="text-primary">benjamin-rollan</a>
+                                            </div>
+                                            <div class="mb-3">
+                                                <i class="fab fa-github text-primary me-3"></i>
+                                                <strong>GitHub:</strong> <a href="https://github.com/benjaminn1202" target="_blank" class="text-primary">benjaminn1202</a>
+                                            </div>
+                                            <div class="mb-3">
+                                                <i class="fas fa-globe text-primary me-3"></i>
+                                                <strong>Portfolio:</strong> <a href="https://benjaminn1202.github.io/Portfolio" target="_blank" class="text-primary">View Portfolio</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>
